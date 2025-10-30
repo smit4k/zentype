@@ -8,16 +8,27 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
+    
     steps:
     - uses: actions/checkout@v4
-    - name: configure
-      run: ./configure
-    - name: make
-      run: make
-    - name: make check
-      run: make check
-    - name: make distcheck
-      run: make distcheck
+    
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libgl1-mesa-dev libx11-dev libxrandr-dev libxi-dev libxcursor-dev libxinerama-dev
+    
+    - name: Create build directory
+      run: mkdir build
+    
+    - name: Configure CMake
+      run: cmake -B build -DCMAKE_BUILD_TYPE=Release
+    
+    - name: Build
+      run: cmake --build build
+    
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: zentype-linux
+        path: build/bin/zentype
