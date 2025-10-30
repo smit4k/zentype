@@ -7,6 +7,11 @@ int main() {
     
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "zentype");
     SetTargetFPS(60);
+
+    InitAudioDevice();
+
+    Sound keyPressSound = LoadSound("assets/sounds/keypress.wav");
+    Sound keyDeleteSound = LoadSound("assets/sounds/delete.wav");
     
     std::string typedText = "";
     int cursorPosition = 0;
@@ -29,6 +34,7 @@ int main() {
             if (key >= 32 && key <= 126) {
                 typedText.insert(cursorPosition, 1, (char)key);
                 cursorPosition++;
+                PlaySound(keyPressSound);
             }
             key = GetCharPressed();
         }
@@ -42,6 +48,7 @@ int main() {
                 if (cursorPosition > 0) {
                     typedText.erase(cursorPosition - 1, 1);
                     cursorPosition--;
+                    PlaySound(keyDeleteSound);
                 }
                 deleteRepeatTimer = 0.0f;
             } else if (backspaceHoldTime >= HOLD_DELAY) {
@@ -116,7 +123,10 @@ int main() {
         
         EndDrawing();
     }
-    
+
+    UnloadSound(keyPressSound);
+    UnloadSound(keyDeleteSound);
+    CloseAudioDevice();
     CloseWindow();
     return 0;
 }
