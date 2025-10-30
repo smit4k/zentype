@@ -65,28 +65,6 @@ int main() {
             deleteRepeatTimer = 0.0f;
         }
         
-        // Handle delete with hold
-        if (IsKeyDown(KEY_DELETE)) {
-            deleteHoldTime += deltaTime;
-            
-            if (IsKeyPressed(KEY_DELETE)) {
-                // First press - delete immediately
-                if (cursorPosition < typedText.length()) {
-                    typedText.erase(cursorPosition, 1);
-                }
-                deleteRepeatTimer = 0.0f;
-            } else if (deleteHoldTime >= HOLD_DELAY) {
-                // Held long enough - rapid delete
-                deleteRepeatTimer += deltaTime;
-                if (deleteRepeatTimer >= REPEAT_RATE && cursorPosition < typedText.length()) {
-                    typedText.erase(cursorPosition, 1);
-                    deleteRepeatTimer = 0.0f;
-                }
-            }
-        } else {
-            deleteHoldTime = 0.0f;
-        }
-        
         // Move cursor with arrow keys
         if (IsKeyPressed(KEY_LEFT) && cursorPosition > 0) {
             cursorPosition--;
