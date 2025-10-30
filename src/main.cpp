@@ -57,6 +57,7 @@ int main() {
                 if (deleteRepeatTimer >= REPEAT_RATE && cursorPosition > 0) {
                     typedText.erase(cursorPosition - 1, 1);
                     cursorPosition--;
+                    PlaySound(keyDeleteSound);
                     deleteRepeatTimer = 0.0f;
                 }
             }
