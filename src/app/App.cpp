@@ -5,6 +5,7 @@ App::App(int width, int height, const char* title)
     : SCREEN_WIDTH(width), SCREEN_HEIGHT(height), WINDOW_TITLE(title) {
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE);
     InitAudioDevice();
+    soundManager.Initialize();
     SetTargetFPS(60);
 }
 
