@@ -20,9 +20,13 @@ SoundManager::~SoundManager() {
 }
 
 void SoundManager::PlayKeyPress() { 
-    if (initialized) PlaySound(keyPressSound); 
+    if (initialized) {
+        PlaySound(keyPressSound);
+    }
 }
 
 void SoundManager::PlayDelete() { 
-    if (initialized) PlaySound(deleteSound); 
+    if (initialized) {
+        PlaySound(deleteSound);
+    }
 }

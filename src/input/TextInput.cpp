@@ -5,7 +5,7 @@ void TextInput::Update(float deltaTime, SoundManager& soundManager) {
     // Handle text input
     int key = GetCharPressed();
     while (key > 0) {
-        if (key >= 32 && key <= 126) { // Printable ASCII range
+        if (key >= 32 && key <= 126) { // Printable characters
             typedText.insert(cursorPosition, 1, (char)key);
             cursorPosition++;
             soundManager.PlayKeyPress();
@@ -41,8 +41,12 @@ void TextInput::Update(float deltaTime, SoundManager& soundManager) {
     }
 
     // Move cursor with arrow keys
-    if (IsKeyPressed(KEY_LEFT) && cursorPosition > 0) cursorPosition--;
-    if (IsKeyPressed(KEY_RIGHT) && cursorPosition < (int)typedText.length()) cursorPosition++;
+    if (IsKeyPressed(KEY_LEFT) && cursorPosition > 0) {
+        cursorPosition--;
+    }
+    if (IsKeyPressed(KEY_RIGHT) && cursorPosition < (int)typedText.length()){
+        cursorPosition++;
+    }
 
     // Cursor blinking
     cursorBlinkTimer += deltaTime;
