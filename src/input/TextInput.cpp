@@ -12,13 +12,11 @@ void TextInput::Update(float deltaTime, SoundManager& soundManager) {
         }
         key = GetCharPressed();
     }
-
+    
     // Handle backspace key with hold-to-repeat
     if (IsKeyDown(KEY_BACKSPACE)) {
         backspaceHoldTime += deltaTime;
-
         if (IsKeyPressed(KEY_BACKSPACE)) {
-            // Immediate delete on first press
             if (cursorPosition > 0) {
                 typedText.erase(cursorPosition - 1, 1);
                 cursorPosition--;
@@ -26,7 +24,6 @@ void TextInput::Update(float deltaTime, SoundManager& soundManager) {
             }
             deleteRepeatTimer = 0.0f;
         } else if (backspaceHoldTime >= HOLD_DELAY) {
-            // Held long enough — repeat deletion
             deleteRepeatTimer += deltaTime;
             if (deleteRepeatTimer >= REPEAT_RATE && cursorPosition > 0) {
                 typedText.erase(cursorPosition - 1, 1);
@@ -39,18 +36,16 @@ void TextInput::Update(float deltaTime, SoundManager& soundManager) {
         backspaceHoldTime = 0.0f;
         deleteRepeatTimer = 0.0f;
     }
-
+    
+    // Handle left arrow key with hold-to-repeat
     if (IsKeyDown(KEY_LEFT)) {
-        cursorHoldTime += deltaTime;
-
+        cursorLeftHoldTime += deltaTime;
         if (IsKeyPressed(KEY_LEFT)) {
-            // Immediately move cursor left on first press
             if (cursorPosition > 0) {
                 cursorPosition--;
             }
             cursorLeftRepeatTimer = 0.0f;
         } else if (cursorLeftHoldTime >= HOLD_DELAY) {
-            // Held long enough — repeat cursor movement left
             cursorLeftRepeatTimer += deltaTime;
             if (cursorLeftRepeatTimer >= REPEAT_RATE && cursorPosition > 0) {
                 cursorPosition--;
@@ -58,22 +53,19 @@ void TextInput::Update(float deltaTime, SoundManager& soundManager) {
             }
         }
     } else {
-        cursorHoldTime = 0.0f;
-        cursorRepeatTimer = 0.0f;
+        cursorLeftHoldTime = 0.0f;
+        cursorLeftRepeatTimer = 0.0f;
     }
-
-    // Handle right arrow key with hold-to-repeat (mirror of left)
+    
+    // Handle right arrow key with hold-to-repeat
     if (IsKeyDown(KEY_RIGHT)) {
         cursorRightHoldTime += deltaTime;
-
         if (IsKeyPressed(KEY_RIGHT)) {
-            // Immediately move cursor right on first press
             if (cursorPosition < (int)typedText.length()) {
                 cursorPosition++;
             }
             cursorRightRepeatTimer = 0.0f;
         } else if (cursorRightHoldTime >= HOLD_DELAY) {
-            // Held long enough — repeat cursor movement right
             cursorRightRepeatTimer += deltaTime;
             if (cursorRightRepeatTimer >= REPEAT_RATE && cursorPosition < (int)typedText.length()) {
                 cursorPosition++;
@@ -84,20 +76,28 @@ void TextInput::Update(float deltaTime, SoundManager& soundManager) {
         cursorRightHoldTime = 0.0f;
         cursorRightRepeatTimer = 0.0f;
     }
+    
+    // Cursor blinking
+    cursorBlinkTimer += deltaTime;
+    if (cursorBlinkTimer >= 0.5f) {
+        showCursor = !showCursor;
+        cursorBlinkTimer = 0.0f;
+    }
 }
 
-void TextInput::Draw(int x, int y) {
-    // Draw text box boundary (use runtime screen size)
+void TextInput::Draw(int x, int y, Font font) {  // Add Font font parameter!
+    // Draw text box boundary
     Rectangle textBox = {50, 100, (float)GetScreenWidth() - 100.0f, (float)GetScreenHeight() - 150.0f};
     DrawRectangleRoundedLinesEx(textBox, 0.02f, 16, 2.0f, LIGHTGRAY);
-
-    // Draw typed text
-    DrawText(typedText.c_str(), x, y, 24, DARKGRAY);
-
+    
+    // Draw typed text with custom font
+    DrawTextEx(font, typedText.c_str(), (Vector2){(float)x, (float)y}, 24, 1, DARKGRAY);
+    
     // Draw blinking cursor
     if (showCursor) {
         std::string textBeforeCursor = typedText.substr(0, cursorPosition);
-        int cursorX = x + MeasureText(textBeforeCursor.c_str(), 24);
+        Vector2 textSize = MeasureTextEx(font, textBeforeCursor.c_str(), 24, 1);
+        int cursorX = x + (int)textSize.x;
         DrawRectangle(cursorX, y, 2, 24, DARKGRAY);
     }
 }

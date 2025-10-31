@@ -15,6 +15,7 @@ private:
     const char* WINDOW_TITLE;
     TextInput textInput;
     SoundManager soundManager;
+    Font customFont;
 
     void Update(float deltaTime);
     void Draw();

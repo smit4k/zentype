@@ -7,9 +7,11 @@ App::App(int width, int height, const char* title)
     InitAudioDevice();
     soundManager.Initialize();
     SetTargetFPS(60);
+    customFont = LoadFontEx("assets/fonts/JetBrainsMono-Bold.ttf", 48, 0, 0);
 }
 
 App::~App() {
+    UnloadFont(customFont);
     CloseAudioDevice();
     CloseWindow();
 }
@@ -29,9 +31,10 @@ void App::Update(float deltaTime) {
 void App::Draw() {
     BeginDrawing();
     ClearBackground(RAYWHITE);
-
-    DrawText("zentype", 50, 30, 40, DARKGRAY);
-    textInput.Draw(60, 110);
-
+    
+    DrawTextEx(customFont, "zentype", (Vector2){50, 30}, 40, 2, DARKGRAY);
+    
+    textInput.Draw(60, 110, customFont);  // Pass the font!
+    
     EndDrawing();
 }
