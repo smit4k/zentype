@@ -15,6 +15,11 @@ private:
     float backspaceHoldTime = 0.0f;
     float deleteRepeatTimer = 0.0f;
 
+    float cursorLeftHoldTime = 0.0f;
+    float cursorLeftRepeatTimer = 0.0f;
+    float cursorRightHoldTime = 0.0f;
+    float cursorRightRepeatTimer = 0.0f;
+
     const float HOLD_DELAY = 0.5f;
     const float REPEAT_RATE = 0.05f;
 };

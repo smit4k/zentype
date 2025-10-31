@@ -40,19 +40,49 @@ void TextInput::Update(float deltaTime, SoundManager& soundManager) {
         deleteRepeatTimer = 0.0f;
     }
 
-    // Move cursor with arrow keys
-    if (IsKeyPressed(KEY_LEFT) && cursorPosition > 0) {
-        cursorPosition--;
-    }
-    if (IsKeyPressed(KEY_RIGHT) && cursorPosition < (int)typedText.length()){
-        cursorPosition++;
+    if (IsKeyDown(KEY_LEFT)) {
+        cursorHoldTime += deltaTime;
+
+        if (IsKeyPressed(KEY_LEFT)) {
+            // Immediately move cursor left on first press
+            if (cursorPosition > 0) {
+                cursorPosition--;
+            }
+            cursorLeftRepeatTimer = 0.0f;
+        } else if (cursorLeftHoldTime >= HOLD_DELAY) {
+            // Held long enough — repeat cursor movement left
+            cursorLeftRepeatTimer += deltaTime;
+            if (cursorLeftRepeatTimer >= REPEAT_RATE && cursorPosition > 0) {
+                cursorPosition--;
+                cursorLeftRepeatTimer = 0.0f;
+            }
+        }
+    } else {
+        cursorHoldTime = 0.0f;
+        cursorRepeatTimer = 0.0f;
     }
 
-    // Cursor blinking
-    cursorBlinkTimer += deltaTime;
-    if (cursorBlinkTimer >= 0.5f) {
-        showCursor = !showCursor;
-        cursorBlinkTimer = 0.0f;
+    // Handle right arrow key with hold-to-repeat (mirror of left)
+    if (IsKeyDown(KEY_RIGHT)) {
+        cursorRightHoldTime += deltaTime;
+
+        if (IsKeyPressed(KEY_RIGHT)) {
+            // Immediately move cursor right on first press
+            if (cursorPosition < (int)typedText.length()) {
+                cursorPosition++;
+            }
+            cursorRightRepeatTimer = 0.0f;
+        } else if (cursorRightHoldTime >= HOLD_DELAY) {
+            // Held long enough — repeat cursor movement right
+            cursorRightRepeatTimer += deltaTime;
+            if (cursorRightRepeatTimer >= REPEAT_RATE && cursorPosition < (int)typedText.length()) {
+                cursorPosition++;
+                cursorRightRepeatTimer = 0.0f;
+            }
+        }
+    } else {
+        cursorRightHoldTime = 0.0f;
+        cursorRightRepeatTimer = 0.0f;
     }
 }
 
