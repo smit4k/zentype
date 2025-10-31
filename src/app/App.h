@@ -10,10 +10,9 @@ public:
     void Run();  // main game loop
 
 private:
-    int screenWidth;
-    int screenHeight;
-    const char* windowTitle;
-
+    int SCREEN_WIDTH;
+    int SCREEN_HEIGHT;
+    const char* WINDOW_TITLE;
     TextInput textInput;
     SoundManager soundManager;
 

@@ -1,9 +1,9 @@
 #include "App.h"
-#include "raylib.h"
+#include <raylib.h>
 
 App::App(int width, int height, const char* title)
-    : screenWidth(width), screenHeight(height), windowTitle(title) {
-    InitWindow(screenWidth, screenHeight, windowTitle);
+    : SCREEN_WIDTH(width), SCREEN_HEIGHT(height), WINDOW_TITLE(title) {
+    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE);
     InitAudioDevice();
     SetTargetFPS(60);
 }

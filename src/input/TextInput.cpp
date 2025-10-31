@@ -1,5 +1,5 @@
 #include "TextInput.h"
-#include "raylib.h"
+#include <raylib.h>
 
 void TextInput::Update(float deltaTime, SoundManager& soundManager) {
     // Handle text input
@@ -53,8 +53,8 @@ void TextInput::Update(float deltaTime, SoundManager& soundManager) {
 }
 
 void TextInput::Draw(int x, int y) {
-    // Draw text box boundary
-    Rectangle textBox = { (float)x - 10, (float)y - 10, (float)GetScreenWidth() - 100, 40 };
+    // Draw text box boundary (use runtime screen size)
+    Rectangle textBox = {50, 100, (float)GetScreenWidth() - 100.0f, (float)GetScreenHeight() - 150.0f};
     DrawRectangleRoundedLinesEx(textBox, 0.02f, 16, 2.0f, LIGHTGRAY);
 
     // Draw typed text
