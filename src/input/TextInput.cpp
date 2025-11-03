@@ -85,7 +85,7 @@ void TextInput::Update(float deltaTime, SoundManager& soundManager) {
     }
 }
 
-void TextInput::Draw(int x, int y, Font font) {  // Add Font font parameter!
+void TextInput::Draw(int x, int y, Font font) {
     // Draw text box boundary
     Rectangle textBox = {50, 100, (float)GetScreenWidth() - 100.0f, (float)GetScreenHeight() - 150.0f};
     DrawRectangleRoundedLinesEx(textBox, 0.02f, 16, 2.0f, LIGHTGRAY);

@@ -6,7 +6,7 @@
 class TextInput {
 public:
     void Update(float deltaTime, SoundManager& soundManager);
-    void Draw(int x, int y, Font font);  // Add font parameter
+    void Draw(int x, int y, Font font);
     
 private:
     std::string typedText;

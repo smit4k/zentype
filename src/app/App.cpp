@@ -34,7 +34,7 @@ void App::Draw() {
     
     DrawTextEx(customFont, "zentype", (Vector2){50, 30}, 40, 2, DARKGRAY);
     
-    textInput.Draw(60, 110, customFont);  // Pass the font!
+    textInput.Draw(60, 110, customFont);
     
     EndDrawing();
 }
