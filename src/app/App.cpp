@@ -7,7 +7,8 @@ App::App(int width, int height, const char* title)
     InitAudioDevice();
     soundManager.Initialize();
     SetTargetFPS(60);
-    customFont = LoadFontEx("assets/fonts/JetBrainsMono-Bold.ttf", 48, 0, 0);
+    customFont = LoadFontEx("assets/fonts/JetBrainsMono-Bold.ttf", 96, 0, 0);
+    SetTextureFilter(customFont.texture, TEXTURE_FILTER_BILINEAR);
 }
 
 App::~App() {
