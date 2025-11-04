@@ -8,10 +8,12 @@ public:
 
     void Initialize();
     void PlayKeyPress();
+    void PlayTabPress();
     void PlayDelete();
     
 private:
     Sound keyPressSound;
+    Sound tabPressSound;
     Sound deleteSound;
     bool initialized;
 };

@@ -12,7 +12,14 @@ void TextInput::Update(float deltaTime, SoundManager& soundManager) {
         }
         key = GetCharPressed();
     }
-    
+
+    // Handle tab key
+    if (IsKeyPressed(KEY_TAB)) {
+        typedText.insert(cursorPosition, 4, ' ');
+        cursorPosition+=4;
+        soundManager.PlayTabPress();
+    }
+
     // Handle backspace key with hold-to-repeat
     if (IsKeyDown(KEY_BACKSPACE)) {
         backspaceHoldTime += deltaTime;
