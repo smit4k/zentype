@@ -1,5 +1,6 @@
 #include "TextInput.h"
 #include <raylib.h>
+#include <vector>
 
 void TextInput::Update(float deltaTime, SoundManager& soundManager) {
     // Handle text input
@@ -97,14 +98,73 @@ void TextInput::Draw(int x, int y, Font font) {
     Rectangle textBox = {50, 100, (float)GetScreenWidth() - 100.0f, (float)GetScreenHeight() - 150.0f};
     DrawRectangleRoundedLinesEx(textBox, 0.02f, 16, 2.0f, LIGHTGRAY);
     
-    // Draw typed text with custom font
-    DrawTextEx(font, typedText.c_str(), (Vector2){(float)x, (float)y}, 24, 1, DARKGRAY);
+    // Calculate maximum width for text wrapping
+    float maxWidth = textBox.width - 20.0f; // Leave some padding
+    float lineHeight = 30.0f; // Height between lines
+    // Process text word by word for wrapping
+    std::string currentLine;
+    float currentY = y;
+    size_t lineStart = 0;
+    float cursorX = x;
+    float cursorY = y;
+    
+    // First pass: calculate lines and find cursor position
+    std::vector<std::string> lines;
+    std::string tempLine;
+    size_t processedChars = 0;
+    
+    while (processedChars < typedText.length()) {
+        // Find next word boundary
+        size_t nextSpace = typedText.find(' ', processedChars);
+        if (nextSpace == std::string::npos) nextSpace = typedText.length();
+        
+        // Get the next word
+        std::string word = typedText.substr(processedChars, nextSpace - processedChars + (nextSpace < typedText.length() ? 1 : 0));
+        
+        // Check if adding this word would exceed line width
+        Vector2 newLineSize = MeasureTextEx(font, (tempLine + word).c_str(), 24, 1);
+        
+        if (newLineSize.x > maxWidth && !tempLine.empty()) {
+            // Line is full, add it to lines
+            lines.push_back(tempLine);
+            
+            // Check if cursor is on this line
+            if (cursorPosition >= lineStart && cursorPosition <= processedChars) {
+                std::string textBeforeCursor = typedText.substr(lineStart, cursorPosition - lineStart);
+                Vector2 cursorOffset = MeasureTextEx(font, textBeforeCursor.c_str(), 24, 1);
+                cursorX = x + cursorOffset.x;
+                cursorY = y + (lines.size() - 1) * lineHeight;
+            }
+            
+            lineStart = processedChars;
+            tempLine = word;
+        } else {
+            tempLine += word;
+        }
+        
+        processedChars = nextSpace + 1;
+    }
+    
+    // Add the last line
+    if (!tempLine.empty()) {
+        lines.push_back(tempLine);
+        if (cursorPosition >= lineStart) {
+            std::string textBeforeCursor = typedText.substr(lineStart, cursorPosition - lineStart);
+            Vector2 cursorOffset = MeasureTextEx(font, textBeforeCursor.c_str(), 24, 1);
+            cursorX = x + cursorOffset.x;
+            cursorY = y + (lines.size() - 1) * lineHeight;
+        }
+    }
+    
+    // Draw all lines
+    currentY = y;
+    for (const auto& line : lines) {
+        DrawTextEx(font, line.c_str(), (Vector2){(float)x, currentY}, 24, 1, DARKGRAY);
+        currentY += lineHeight;
+    }
     
     // Draw blinking cursor
     if (showCursor) {
-        std::string textBeforeCursor = typedText.substr(0, cursorPosition);
-        Vector2 textSize = MeasureTextEx(font, textBeforeCursor.c_str(), 24, 1);
-        int cursorX = x + (int)textSize.x;
-        DrawRectangle(cursorX, y, 2, 24, DARKGRAY);
+        DrawRectangle(cursorX, cursorY, 2, 24, DARKGRAY);
     }
 }
