@@ -6,7 +6,7 @@ App::App(int width, int height, const char* title)
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE);
     InitAudioDevice();
     soundManager.Initialize();
-    SetTargetFPS(60);
+    SetTargetFPS(GetMonitorRefreshRate(0));
     customFont = LoadFontEx("assets/fonts/Roboto-Regular.ttf", 96, 0, 0);
     SetTextureFilter(customFont.texture, TEXTURE_FILTER_BILINEAR);
 }
