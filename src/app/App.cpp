@@ -1,4 +1,5 @@
 #include "App.h"
+#include "ui/UI.h"
 #include <raylib.h>
 
 App::App(int width, int height, const char* title)
@@ -33,9 +34,8 @@ void App::Draw() {
     BeginDrawing();
     ClearBackground(RAYWHITE);
     
-    DrawTextEx(customFont, "zentype", (Vector2){50, 30}, 40, 2, DARKGRAY);
-    
-    textInput.Draw(60, 110, customFont);
+    UI::DrawHeader(customFont);
+    textInput.Draw(UI::GetTextBoxBounds(), customFont);
     
     EndDrawing();
 }
