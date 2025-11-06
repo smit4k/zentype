@@ -9,21 +9,19 @@ public:
     // Initialize UI (set raygui styles if needed)
     static void Init();
     
-    // Header/Title
+    // Header/Title that says "zentype"
     static void DrawHeader(Font font);
-    
-    // Text input area (using raygui panels/groupbox)
+
     static void DrawTextInputBox();
     
     // Buttons
     static bool DrawRestartButton();
     static bool DrawSettingsButton();
-    
-    // Helper to get standard text box bounds
-    static Rectangle GetTextBoxBounds();
+
+    // Gets text input box boundaries
+    static Rectangle GetTextInputBoxBounds();
     
 private:
-    // UI Constants
     static constexpr int HEADER_FONT_SIZE = 48;
     static constexpr int TEXT_FONT_SIZE = 24;
     static constexpr int STATS_FONT_SIZE = 20;
@@ -36,4 +34,4 @@ private:
     static constexpr int BUTTON_HEIGHT = 30;
 };
 
-#endif // UI_H
+#endif

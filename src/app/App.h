@@ -7,7 +7,7 @@ public:
     App(int width, int height, const char* title);
     ~App();
 
-    void Run();  // main game loop
+    void Run();
 
 private:
     int SCREEN_WIDTH;

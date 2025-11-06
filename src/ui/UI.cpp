@@ -11,11 +11,11 @@ void UI::DrawHeader(Font customFont) {
 }
 
 void UI::DrawTextInputBox() {
-    Rectangle textBox = GetTextBoxBounds();
+    Rectangle textBox = GetTextInputBoxBounds();
     DrawRectangleRoundedLinesEx(textBox, 0.02f, 16, 2.0f, LIGHTGRAY);
 }
 
-Rectangle UI::GetTextBoxBounds() {
+Rectangle UI::GetTextInputBoxBounds() {
     Rectangle textBox = {50, 100, (float)GetScreenWidth() - 100.0f, (float)GetScreenHeight() - 150.0f};
     return textBox;
 }
