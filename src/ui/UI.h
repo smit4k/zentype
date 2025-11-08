@@ -10,28 +10,35 @@ public:
     
     // Header/Title that says "zentype"
     static void DrawHeader(Font font);
-
     static void DrawTextInputBox();
     
     // Buttons
     static bool DrawRestartButton();
     static bool DrawSettingsButton();
-
+    
     // Gets text input box boundaries
     static Rectangle GetTextInputBoxBounds();
-    
+
 private:
-    static constexpr int HEADER_FONT_SIZE = 48;
-    static constexpr int TEXT_FONT_SIZE = 24;
-    static constexpr int STATS_FONT_SIZE = 20;
-
-    Font customFont;
+    // Sizing constants
+    static constexpr float HEADER_FONT_SIZE = 48.0f;
+    static constexpr float TEXT_FONT_SIZE = 24.0f;
+    static constexpr float STATS_FONT_SIZE = 20.0f;
     
-    static constexpr int PADDING = 20;
-    static constexpr int TEXT_BOX_PADDING = 40;
-
-    static constexpr int BUTTON_WIDTH = 32;
-    static constexpr int BUTTON_HEIGHT = 32;
+    // Layout constants
+    static constexpr float PADDING = 20.0f;
+    static constexpr float TEXT_BOX_PADDING = 40.0f;
+    static constexpr float BUTTON_WIDTH = 32.0f;
+    static constexpr float BUTTON_HEIGHT = 32.0f;
+    
+    // Cache
+    static Rectangle cachedTextBox;
+    static Rectangle cachedButtonRec;
+    static int lastScreenWidth;
+    static int lastScreenHeight;
+    
+    // Helper to update cached bounds
+    static void UpdateCachedBounds();
 };
 
-#endif
+#endif // UI_H
