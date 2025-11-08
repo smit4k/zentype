@@ -21,15 +21,14 @@ bool UI::DrawSettingsButton() {
     
     // Align button to the right edge of the text input box
     Rectangle buttonRec = {
-        textBox.x + textBox.width - BUTTON_WIDTH,
-        textBox.y - BUTTON_HEIGHT - PADDING,
-        BUTTON_WIDTH, 
-        BUTTON_HEIGHT
+        textBox.x + textBox.width - BUTTON_WIDTH,  // Right edge of text box
+        textBox.y - BUTTON_HEIGHT - PADDING,        // Above text box
+        (float)BUTTON_WIDTH, 
+        (float)BUTTON_HEIGHT
     };
     
     return GuiButton(buttonRec, "#142#");
 }
-
 Rectangle UI::GetTextInputBoxBounds() {
     Rectangle textBox = {50, 100, (float)GetScreenWidth() - 100.0f, (float)GetScreenHeight() - 150.0f};
     return textBox;
