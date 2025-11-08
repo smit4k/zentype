@@ -1,5 +1,6 @@
 #define RAYGUI_IMPLEMENTATION
 #include "UI.h"
+#include "raygui.h"
 
 void UI::DrawHeader(Font customFont) {
     const char* title = "zentype";
@@ -13,6 +14,20 @@ void UI::DrawHeader(Font customFont) {
 void UI::DrawTextInputBox() {
     Rectangle textBox = GetTextInputBoxBounds();
     DrawRectangleRoundedLinesEx(textBox, 0.02f, 16, 2.0f, LIGHTGRAY);
+}
+
+bool UI::DrawSettingsButton() {
+    Rectangle textBox = GetTextInputBoxBounds();
+    
+    // Align button to the right edge of the text input box
+    Rectangle buttonRec = {
+        textBox.x + textBox.width - BUTTON_WIDTH,
+        textBox.y - BUTTON_HEIGHT - PADDING,
+        BUTTON_WIDTH, 
+        BUTTON_HEIGHT
+    };
+    
+    return GuiButton(buttonRec, "#142#");
 }
 
 Rectangle UI::GetTextInputBoxBounds() {

@@ -36,6 +36,7 @@ void App::Draw() {
     
     UI::DrawHeader(customFont);
     UI::DrawTextInputBox();
+    UI::DrawSettingsButton();
     textInput.Draw(UI::GetTextInputBoxBounds(), customFont);
     
     EndDrawing();
