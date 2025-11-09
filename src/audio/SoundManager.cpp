@@ -16,6 +16,7 @@ void SoundManager::Initialize() {
 SoundManager::~SoundManager() {
     if (initialized) {
         UnloadSound(keyPressSound);
+        UnloadSound(tabPressSound);
         UnloadSound(deleteSound);
     }
 }
