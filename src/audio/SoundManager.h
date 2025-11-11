@@ -8,11 +8,13 @@ public:
 
     void Initialize();
     void PlayKeyPress();
+    void PlaySpacePress();
     void PlayTabPress();
     void PlayDelete();
     
 private:
     Sound keyPressSound;
+    Sound spacePressSound;
     Sound tabPressSound;
     Sound deleteSound;
     bool initialized;

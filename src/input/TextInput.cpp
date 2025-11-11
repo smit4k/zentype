@@ -6,13 +6,21 @@ void TextInput::Update(float deltaTime, SoundManager& soundManager) {
     // Handle text input
     int key = GetCharPressed();
     while (key > 0) {
-        if (key >= 32 && key <= 126) { // Printable characters
+        if (key >= 32 && key <= 126 && key != 32) { // Printable characters
             typedText.insert(cursorPosition, 1, (char)key);
             cursorPosition++;
             soundManager.PlayKeyPress();
         }
         key = GetCharPressed();
     }
+
+    // Handle space key
+    if (IsKeyPressed(KEY_SPACE)) {
+        typedText.insert(cursorPosition, 1, ' ');
+        cursorPosition++;
+        soundManager.PlaySpacePress();
+    }
+
 
     // Handle tab key
     if (IsKeyPressed(KEY_TAB)) {
