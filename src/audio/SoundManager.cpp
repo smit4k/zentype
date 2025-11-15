@@ -1,8 +1,6 @@
 #include "SoundManager.h"
 
-SoundManager::SoundManager() : initialized(false) {
-    
-}
+SoundManager::SoundManager() : initialized(false) {}
 
 void SoundManager::Initialize() {
     if (!initialized) {
@@ -22,7 +20,7 @@ SoundManager::~SoundManager() {
     }
 }
 
-void SoundManager::PlayKeyPress() { 
+void SoundManager::PlayKeyPress() {
     if (initialized) {
         PlaySound(keyPressSound);
     }
@@ -40,7 +38,7 @@ void SoundManager::PlayTabPress() {
     }
 }
 
-void SoundManager::PlayDelete() { 
+void SoundManager::PlayDelete() {
     if (initialized) {
         PlaySound(deleteSound);
     }

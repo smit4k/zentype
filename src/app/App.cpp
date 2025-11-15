@@ -2,7 +2,7 @@
 #include "ui/UI.h"
 #include <raylib.h>
 
-App::App(int width, int height, const char* title)
+App::App(int width, int height, const char *title)
     : SCREEN_WIDTH(width), SCREEN_HEIGHT(height), WINDOW_TITLE(title) {
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE);
     InitAudioDevice();
@@ -26,18 +26,16 @@ void App::Run() {
     }
 }
 
-void App::Update(float deltaTime) {
-    textInput.Update(deltaTime, soundManager);
-}
+void App::Update(float deltaTime) { textInput.Update(deltaTime, soundManager); }
 
 void App::Draw() {
     BeginDrawing();
     ClearBackground(RAYWHITE);
-    
+
     UI::DrawHeader(customFont);
     UI::DrawTextInputBox();
     UI::DrawSettingsButton();
     textInput.Draw(UI::GetTextInputBoxBounds(), customFont);
-    
+
     EndDrawing();
 }

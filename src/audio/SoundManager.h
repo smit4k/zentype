@@ -2,7 +2,7 @@
 #include <raylib.h>
 
 class SoundManager {
-public:
+  public:
     SoundManager();
     ~SoundManager();
 
@@ -11,8 +11,8 @@ public:
     void PlaySpacePress();
     void PlayTabPress();
     void PlayDelete();
-    
-private:
+
+  private:
     Sound keyPressSound;
     Sound spacePressSound;
     Sound tabPressSound;

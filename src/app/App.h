@@ -1,18 +1,18 @@
 #pragma once
-#include "input/TextInput.h"
 #include "audio/SoundManager.h"
+#include "input/TextInput.h"
 
 class App {
-public:
-    App(int width, int height, const char* title);
+  public:
+    App(int width, int height, const char *title);
     ~App();
 
     void Run();
 
-private:
+  private:
     int SCREEN_WIDTH;
     int SCREEN_HEIGHT;
-    const char* WINDOW_TITLE;
+    const char *WINDOW_TITLE;
     TextInput textInput;
     SoundManager soundManager;
     Font customFont;

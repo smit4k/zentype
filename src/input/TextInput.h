@@ -1,14 +1,14 @@
 #pragma once
-#include <string>
-#include <raylib.h>
 #include "audio/SoundManager.h"
+#include <raylib.h>
+#include <string>
 
 class TextInput {
-public:
-    void Update(float deltaTime, SoundManager& soundManager);
+  public:
+    void Update(float deltaTime, SoundManager &soundManager);
     void Draw(Rectangle bounds, Font font);
-    
-private:
+
+  private:
     std::string typedText;
     int cursorPosition = 0;
     float cursorBlinkTimer = 0.0f;

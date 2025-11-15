@@ -2,7 +2,7 @@
 #include <raylib.h>
 #include <vector>
 
-void TextInput::Update(float deltaTime, SoundManager& soundManager) {
+void TextInput::Update(float deltaTime, SoundManager &soundManager) {
     // Handle text input
     int key = GetCharPressed();
     while (key > 0) {
@@ -21,11 +21,10 @@ void TextInput::Update(float deltaTime, SoundManager& soundManager) {
         soundManager.PlaySpacePress();
     }
 
-
     // Handle tab key
     if (IsKeyPressed(KEY_TAB)) {
         typedText.insert(cursorPosition, 4, ' ');
-        cursorPosition+=4;
+        cursorPosition += 4;
         soundManager.PlayTabPress();
     }
 
@@ -52,7 +51,7 @@ void TextInput::Update(float deltaTime, SoundManager& soundManager) {
         backspaceHoldTime = 0.0f;
         deleteRepeatTimer = 0.0f;
     }
-    
+
     // Handle left arrow key with hold-to-repeat
     if (IsKeyDown(KEY_LEFT)) {
         cursorLeftHoldTime += deltaTime;
@@ -72,7 +71,7 @@ void TextInput::Update(float deltaTime, SoundManager& soundManager) {
         cursorLeftHoldTime = 0.0f;
         cursorLeftRepeatTimer = 0.0f;
     }
-    
+
     // Handle right arrow key with hold-to-repeat
     if (IsKeyDown(KEY_RIGHT)) {
         cursorRightHoldTime += deltaTime;
@@ -83,7 +82,8 @@ void TextInput::Update(float deltaTime, SoundManager& soundManager) {
             cursorRightRepeatTimer = 0.0f;
         } else if (cursorRightHoldTime >= HOLD_DELAY) {
             cursorRightRepeatTimer += deltaTime;
-            if (cursorRightRepeatTimer >= REPEAT_RATE && cursorPosition < (int)typedText.length()) {
+            if (cursorRightRepeatTimer >= REPEAT_RATE &&
+                cursorPosition < (int)typedText.length()) {
                 cursorPosition++;
                 cursorRightRepeatTimer = 0.0f;
             }
@@ -92,7 +92,7 @@ void TextInput::Update(float deltaTime, SoundManager& soundManager) {
         cursorRightHoldTime = 0.0f;
         cursorRightRepeatTimer = 0.0f;
     }
-    
+
     // Cursor blinking
     cursorBlinkTimer += deltaTime;
     if (cursorBlinkTimer >= 0.5f) {
@@ -104,16 +104,16 @@ void TextInput::Update(float deltaTime, SoundManager& soundManager) {
 void TextInput::Draw(Rectangle bounds, Font font) {
     float x = bounds.x + 10; // padding
     float y = bounds.y + 10; // padding
-    
+
     // Draw the typed text
     DrawTextEx(font, typedText.c_str(), (Vector2){x, y}, 24, 1, DARKGRAY);
-    
+
     // Calculate cursor position
     std::string textBeforeCursor = typedText.substr(0, cursorPosition);
     Vector2 cursorOffset = MeasureTextEx(font, textBeforeCursor.c_str(), 24, 1);
     float cursorX = x + cursorOffset.x;
     float cursorY = y;
-    
+
     // Draw blinking cursor
     if (showCursor) {
         DrawRectangle(cursorX, cursorY, 2, 24, DARKGRAY);
