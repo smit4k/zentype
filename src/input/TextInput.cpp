@@ -99,6 +99,10 @@ void TextInput::Update(float deltaTime, SoundManager &soundManager) {
         showCursor = !showCursor;
         cursorBlinkTimer = 0.0f;
     }
+
+    if (IsKeyDown(KEY_LEFT_SUPER) && IsKeyPressed(KEY_BACKSPACE)) {
+        Restart();
+    }
 }
 
 void TextInput::Draw(Rectangle bounds, Font font) {
@@ -118,4 +122,9 @@ void TextInput::Draw(Rectangle bounds, Font font) {
     if (showCursor) {
         DrawRectangle(cursorX, cursorY, 2, 24, DARKGRAY);
     }
+}
+
+void TextInput::Restart() {
+    typedText = "";
+    cursorPosition = 0;
 }

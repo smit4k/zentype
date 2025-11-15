@@ -7,6 +7,7 @@ class TextInput {
   public:
     void Update(float deltaTime, SoundManager &soundManager);
     void Draw(Rectangle bounds, Font font);
+    void Restart();
 
   private:
     std::string typedText;

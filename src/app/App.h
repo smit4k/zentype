@@ -19,4 +19,5 @@ class App {
 
     void Update(float deltaTime);
     void Draw();
+    void Restart();
 };
