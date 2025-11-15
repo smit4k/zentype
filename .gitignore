@@ -21,7 +21,9 @@ bin/
 
 # IDE and editor files
 .vscode/
-.idea/
+.idea
+.cache/clangd/index
+.crush/
 *.swp
 *.swo
 *~
