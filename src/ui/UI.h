@@ -33,7 +33,8 @@ class UI {
 
     // Cache
     static Rectangle cachedTextBox;
-    static Rectangle cachedButtonRec;
+    static Rectangle cachedRestartButtonRec;
+    static Rectangle cachedSettingsButtonRec;
     static int lastScreenWidth;
     static int lastScreenHeight;
 

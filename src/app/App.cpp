@@ -26,7 +26,13 @@ void App::Run() {
     }
 }
 
-void App::Update(float deltaTime) { textInput.Update(deltaTime, soundManager); }
+void App::Update(float deltaTime) {
+    if (UI::DrawRestartButton()) {
+        textInput.Restart();
+    }
+
+    textInput.Update(deltaTime, soundManager);
+}
 
 void App::Draw() {
     BeginDrawing();
@@ -35,6 +41,7 @@ void App::Draw() {
     UI::DrawHeader(customFont);
     UI::DrawTextInputBox();
     UI::DrawSettingsButton();
+    UI::DrawRestartButton();
     textInput.Draw(UI::GetTextInputBoxBounds(), customFont);
 
     EndDrawing();
