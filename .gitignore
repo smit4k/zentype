@@ -22,7 +22,6 @@ bin/
 # IDE and editor files
 .vscode/
 .idea
-.cache/clangd/index
 .crush/
 *.swp
 *.swo
@@ -50,3 +49,6 @@ CTestTestfile.cmake
 *.zip
 *.tar.gz
 *.7z
+
+# Cache files
+.cache/
