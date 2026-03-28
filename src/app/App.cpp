@@ -5,6 +5,7 @@
 App::App(int width, int height, const char *title)
     : SCREEN_WIDTH(width), SCREEN_HEIGHT(height), WINDOW_TITLE(title) {
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE);
+    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitAudioDevice();
     soundManager.Initialize();
     SetTargetFPS(GetMonitorRefreshRate(0));
