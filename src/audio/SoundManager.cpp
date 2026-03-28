@@ -16,6 +16,7 @@ SoundManager::~SoundManager() {
     if (initialized) {
         UnloadSound(keyPressSound);
         UnloadSound(tabPressSound);
+        UnloadSound(spacePressSound);
         UnloadSound(deleteSound);
     }
 }
