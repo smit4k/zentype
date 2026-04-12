@@ -176,17 +176,25 @@ void TextInput::Update(float deltaTime, SoundManager &soundManager) {
 }
 
 void TextInput::Draw(Rectangle bounds, Font font) {
-    float x = bounds.x + 10; // padding
-    float y = bounds.y + 10; // padding
-    float maxWidth = bounds.width - 20; // Account for padding on both sides
+    const Color textColor = {56, 66, 76, 255};
+    const Color cursorColor = {86, 99, 112, 255};
+    const Color placeholderColor = {146, 157, 168, 255};
+
+    float x = bounds.x + 24.0f;
+    float y = bounds.y + 22.0f;
+    float maxWidth = bounds.width - 48.0f;
 
     // Wrap the text based on available width
     WrapText(typedText, maxWidth, font);
 
+    if (typedText.empty()) {
+        DrawTextEx(font, "start typing...", {x, y}, TEXT_FONT_SIZE, 1, placeholderColor);
+    }
+
     // Draw each wrapped line
     for (size_t i = 0; i < wrappedLines.size(); ++i) {
         Vector2 linePos = {x, y + i * (TEXT_FONT_SIZE + LINE_SPACING)};
-        DrawTextEx(font, wrappedLines[i].text.c_str(), linePos, TEXT_FONT_SIZE, 1, DARKGRAY);
+        DrawTextEx(font, wrappedLines[i].text.c_str(), linePos, TEXT_FONT_SIZE, 1, textColor);
     }
 
     // Get cursor position information
@@ -202,7 +210,7 @@ void TextInput::Draw(Rectangle bounds, Font font) {
         float cursorX = x + cursorOffset.x;
         float cursorY = y + cursorInfo.lineIndex * (TEXT_FONT_SIZE + LINE_SPACING);
 
-        DrawRectangle(cursorX, cursorY, 2, (int)TEXT_FONT_SIZE, DARKGRAY);
+        DrawRectangle(cursorX, cursorY, 2, static_cast<int>(TEXT_FONT_SIZE + 2.0f), cursorColor);
     }
 }
 

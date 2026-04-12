@@ -5,41 +5,32 @@
 
 class UI {
   public:
-    // Initialize UI (set raygui styles if needed)
     static void Init();
-
-    // Header/Title that says "zentype"
+    static void DrawBackground();
     static void DrawHeader(Font font);
     static void DrawTextInputBox();
 
-    // Buttons
-    static bool DrawRestartButton();
-    static bool DrawSettingsButton();
+    static void DrawRestartButton();
+    static void DrawSettingsButton();
+    static bool IsRestartPressed();
 
-    // Gets text input box boundaries
     static Rectangle GetTextInputBoxBounds();
 
   private:
-    // Sizing constants
-    static constexpr float HEADER_FONT_SIZE = 48.0f;
-    static constexpr float TEXT_FONT_SIZE = 24.0f;
-    static constexpr float STATS_FONT_SIZE = 20.0f;
+    static constexpr float HEADER_FONT_SIZE = 46.0f;
+    static constexpr float PADDING = 14.0f;
+    static constexpr float BUTTON_SIZE = 36.0f;
 
-    // Layout constants
-    static constexpr float PADDING = 20.0f;
-    static constexpr float TEXT_BOX_PADDING = 40.0f;
-    static constexpr float BUTTON_WIDTH = 32.0f;
-    static constexpr float BUTTON_HEIGHT = 32.0f;
-
-    // Cache
     static Rectangle cachedTextBox;
     static Rectangle cachedRestartButtonRec;
     static Rectangle cachedSettingsButtonRec;
     static int lastScreenWidth;
     static int lastScreenHeight;
 
-    // Helper to update cached bounds
     static void UpdateCachedBounds();
+    static bool IsButtonPressed(Rectangle rec);
+    static void DrawButtonChrome(Rectangle rec, bool hovered);
+    static void DrawRayguiIcon(Rectangle rec, int iconId, bool hovered);
 };
 
 #endif // UI_H

@@ -33,7 +33,7 @@ class TextInput {
 
     std::vector<WrappedLine> wrappedLines;
     const float TEXT_FONT_SIZE = 24.0f;
-    const float LINE_SPACING = 4.0f; // Extra space between lines
+    const float LINE_SPACING = 6.0f;
 
     // Helper functions
     void WrapText(const std::string &text, float maxWidth, Font font);

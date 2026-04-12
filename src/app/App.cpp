@@ -4,8 +4,9 @@
 
 App::App(int width, int height, const char *title)
     : SCREEN_WIDTH(width), SCREEN_HEIGHT(height), WINDOW_TITLE(title) {
-    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE);
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
+    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE);
+    UI::Init();
     InitAudioDevice();
     soundManager.Initialize();
     SetTargetFPS(GetMonitorRefreshRate(0));
@@ -28,7 +29,7 @@ void App::Run() {
 }
 
 void App::Update(float deltaTime) {
-    if (UI::DrawRestartButton()) {
+    if (UI::IsRestartPressed()) {
         textInput.Restart();
     }
 
@@ -37,7 +38,8 @@ void App::Update(float deltaTime) {
 
 void App::Draw() {
     BeginDrawing();
-    ClearBackground(RAYWHITE);
+    ClearBackground({245, 248, 251, 255});
+    UI::DrawBackground();
 
     UI::DrawHeader(customFont);
     UI::DrawTextInputBox();
